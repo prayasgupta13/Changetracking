@@ -67,12 +67,7 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [
-					{
-						"name": "lastmodified",
-						"value": "@{activity('lastmodifiedfile').output.lastModified"
-					}
-				],
+				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "SourceDataset_blob",
