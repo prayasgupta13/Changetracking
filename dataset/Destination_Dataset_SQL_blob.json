@@ -16,6 +16,10 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": "Incremental-0c80cfe7-8ba4-4c2d-824a-61b08ebb7344.txt",
+				"folderPath": {
+					"value": "@dataset(). cw_folderPath",
+					"type": "Expression"
+				},
 				"container": "azuredatalake"
 			},
 			"columnDelimiter": ",",
