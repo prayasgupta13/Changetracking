@@ -15,7 +15,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "data_source_table",
+				"fileName": "data_source_table.txt",
 				"folderPath": "@dataset().cw_folderPath",
 				"container": "azuredatalake"
 			},
