@@ -1,5 +1,5 @@
 {
-	"name": "pipeline_sql_icnremental_watermark",
+	"name": "pipeline_sql_incremental_watermark",
 	"properties": {
 		"activities": [
 			{
@@ -18,10 +18,6 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"queryTimeout": "02:00:00"
-					},
-					"dataset": {
-						"referenceName": "WatermarkDataset",
-						"type": "DatasetReference"
 					}
 				}
 			},
@@ -106,7 +102,10 @@
 				"outputs": [
 					{
 						"referenceName": "Destination_Dataset_SQL_blob",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							" cw_folderPath": "@{formatDateTime(pipeline().parameters.windowStart,'yyyy')}/@{formatDateTime(pipeline().parameters.windowStart,'MM')}/@{formatDateTime(pipeline().parameters.windowStart,'dd')}"
+						}
 					}
 				]
 			},
