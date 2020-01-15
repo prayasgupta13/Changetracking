@@ -19,10 +19,6 @@
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": "select * from table_store_ChangeTracking_version",
 						"queryTimeout": "02:00:00"
-					},
-					"dataset": {
-						"referenceName": "ChangeTrackingDataset",
-						"type": "DatasetReference"
 					}
 				}
 			},

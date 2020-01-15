@@ -5,12 +5,21 @@
 			"referenceName": "ls_blob",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"cw_folderPath": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "Incremental-0c80cfe7-8ba4-4c2d-824a-61b08ebb7344.txt",
+				"fileName": "data_source_table.txt",
+				"folderPath": {
+					"value": "@dataset().cw_folderPath",
+					"type": "Expression"
+				},
 				"container": "azuredatalake"
 			},
 			"columnDelimiter": ",",

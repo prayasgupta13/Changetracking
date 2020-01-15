@@ -25,7 +25,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * from data_source_table where LastModifytime > '@{pipeline().parameters.windowStart}'\n and LastModifytime <='@{pipeline().parameters.windowEnd}'",
+							"value": "select * from data_source_table where LastModifytime > '@{activity('lastmodifiedfile').output.lastModified}' and LastModifytime <='@{pipeline().parameters.windowEnd}'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00"
@@ -88,9 +88,6 @@
 				"type": "string"
 			},
 			"windowEnd": {
-				"type": "string"
-			},
-			"lastmodified": {
 				"type": "string"
 			}
 		},

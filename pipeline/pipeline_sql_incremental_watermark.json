@@ -18,10 +18,6 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"queryTimeout": "02:00:00"
-					},
-					"dataset": {
-						"referenceName": "WatermarkDataset",
-						"type": "DatasetReference"
 					}
 				}
 			},
