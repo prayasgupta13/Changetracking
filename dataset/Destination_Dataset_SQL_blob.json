@@ -5,11 +5,6 @@
 			"referenceName": "ls_blob",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			" cw_folderPath": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
