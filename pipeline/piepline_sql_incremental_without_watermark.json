@@ -3,8 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "LookupNewWaterMarkActivity",
-				"type": "Lookup",
+				"name": "IncrementalCopyActivity",
+				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
@@ -17,39 +17,8 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select MAX(LastModifytime) as NewWatermarkvalue from data_source_table",
-						"queryTimeout": "02:00:00"
-					},
-					"dataset": {
-						"referenceName": "SourceDataset_SQL",
-						"type": "DatasetReference"
-					}
-				}
-			},
-			{
-				"name": "IncrementalCopyActivity",
-				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "LookupNewWaterMarkActivity",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * from data_source_table where LastModifytime > '@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}'\n and LastModifytime <='@{pipeline().parameters.windowStart}'",
+							"value": "select * from data_source_table where LastModifytime > '@{pipeline().parameters.windowStart}'\n and LastModifytime <='@{pipeline().parameters.windowEnd}'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00"
@@ -83,6 +52,9 @@
 		],
 		"parameters": {
 			"windowStart": {
+				"type": "string"
+			},
+			"windowEnd": {
 				"type": "string"
 			}
 		},
