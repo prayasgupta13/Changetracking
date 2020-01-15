@@ -49,7 +49,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * from data_source_table where LastModifytime > '@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}'\n and LastModifytime <='@{pipeline().parameters.windowStart}'",
+							"value": "select * from data_source_table where LastModifytime > convertFromUtc('@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}', 'Pacific Standard Time')\n and LastModifytime <='@{pipeline().parameters.windowStart}'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00"
@@ -79,49 +79,6 @@
 						"type": "DatasetReference"
 					}
 				]
-			},
-			{
-				"name": "StoredProceduretoWriteWatermarkActivity",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "IncrementalCopyActivity",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "usp_write_watermark",
-					"storedProcedureParameters": {
-						"LastModifiedtime": {
-							"value": {
-								"value": "@pipeline().parameters.windowStart",
-								"type": "Expression"
-							},
-							"type": "Datetime"
-						},
-						"TableName": {
-							"value": {
-								"value": "@{activity('LookupNewWaterMarkActivity').output.firstRow.TableName}",
-								"type": "Expression"
-							},
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_sql",
-					"type": "LinkedServiceReference"
-				}
 			}
 		],
 		"parameters": {
