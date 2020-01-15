@@ -1,0 +1,29 @@
+{
+	"name": "trig_increment",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipeline": {
+			"pipelineReference": {
+				"referenceName": "piepline_sql_incremental_without_watermark",
+				"type": "PipelineReference"
+			},
+			"parameters": {
+				"windowStart": "01/15/2020 12:00:00 AM",
+				"windowEnd": "01/15/2020 12:00:00 AM"
+			}
+		},
+		"type": "TumblingWindowTrigger",
+		"typeProperties": {
+			"frequency": "Minute",
+			"interval": 15,
+			"startTime": "2020-01-15T08:13:00.000Z",
+			"delay": "00:00:00",
+			"maxConcurrency": 50,
+			"retryPolicy": {
+				"intervalInSeconds": 30
+			},
+			"dependsOn": []
+		}
+	}
+}
