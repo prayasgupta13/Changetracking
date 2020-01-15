@@ -130,9 +130,6 @@
 		"parameters": {
 			"windowStart": {
 				"type": "string"
-			},
-			"windowEnd": {
-				"type": "string"
 			}
 		},
 		"annotations": []
