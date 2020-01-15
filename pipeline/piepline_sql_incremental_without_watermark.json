@@ -5,7 +5,14 @@
 			{
 				"name": "IncrementalCopyActivity",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "lastmodifiedfile",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -48,6 +55,37 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "lastmodifiedfile",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "lastmodified",
+						"value": "@{activity('lastmodifiedfile').output.lastModified"
+					}
+				],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "SourceDataset_blob",
+						"type": "DatasetReference"
+					},
+					"fieldList": [
+						"lastModified"
+					],
+					"storeSettings": {
+						"type": "AzureBlobStorageReadSettings",
+						"recursive": true
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -55,6 +93,9 @@
 				"type": "string"
 			},
 			"windowEnd": {
+				"type": "string"
+			},
+			"lastmodified": {
 				"type": "string"
 			}
 		},
