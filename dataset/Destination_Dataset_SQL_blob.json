@@ -5,15 +5,18 @@
 			"referenceName": "ls_blob",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			" cw_folderPath": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@CONCAT('Incremental-', pipeline().RunId, '.txt')",
-					"type": "Expression"
-				},
+				"fileName": "data_source_table",
+				"folderPath": "@dataset().cw_folderPath",
 				"container": "azuredatalake"
 			},
 			"columnDelimiter": ",",

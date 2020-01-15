@@ -106,7 +106,10 @@
 				"outputs": [
 					{
 						"referenceName": "Destination_Dataset_SQL_blob",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							" cw_folderPath": "@{formatDateTime(pipeline().parameters.windowStart,'yyyy')}/@{formatDateTime(pipeline().parameters.windowStart,'MM')}/@{formatDateTime(pipeline().parameters.windowStart,'dd')}"
+						}
 					}
 				]
 			},
